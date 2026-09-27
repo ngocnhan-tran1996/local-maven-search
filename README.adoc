@@ -1,0 +1,47 @@
+= Local Maven Search
+
+A tool to search and view Javadoc directly from your local downloaded files.
+
+== Technologies
+
+* **Java**: 17
+* **Apache Maven**: 3.9.16
+* **Spring Boot**: 4.1.1
+
+== Getting Started
+
+=== Prerequisites
+
+Make sure you have Java 17 installed and configured in your environment variables.
+
+=== Run Spring Boot Application
+
+Execute the following command in your project root directory to start the server:
+
+[source,bash]
+----
+./mvnw spring-boot:run
+----
+
+The application will start on port `8080` by default.
+
+== API Endpoint Usage
+
+You can access the Javadoc of any artifact using the following URL pattern:
+
+[source,text]
+----
+http://localhost:8080/javadoc/{group}/{artifact}/{version}
+----
+
+=== Example Request
+
+To view the package summary of Google Guava version `33.4.8-jre`:
+
+[source,text]
+----
+http://localhost:8080/javadoc/com.google.guava/guava/33.4.8-jre/overview-summary.html
+----
+
+* If the file exists inside the Javadoc JAR, it will be streamed instantly with proper `Content-Type`.
+* If the file does not exist, the system safely falls back to render the Thymeleaf `index` dashboard page.
