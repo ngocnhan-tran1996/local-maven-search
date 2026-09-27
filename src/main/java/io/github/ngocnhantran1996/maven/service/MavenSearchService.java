@@ -9,7 +9,6 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -27,7 +26,7 @@ public class MavenSearchService {
     private final String targetDir;
     private final RestClient restClient;
 
-    public MavenSearchService(@Value("${app.jar.dowload-dir:}") String targetDir, RestClient restClient) {
+    public MavenSearchService(@Value("${app.jar.download-dir:}") String targetDir, RestClient restClient) {
         this.targetDir = StringUtils.hasText(targetDir) ? targetDir : DEFAULT_TARGET_DIR;
         this.restClient = restClient;
     }

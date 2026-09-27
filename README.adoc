@@ -1,18 +1,24 @@
 = Local Maven Search
 
-A tool to search and view Javadoc directly from your local downloaded files.
+A tool to search and view Javadoc directly from your downloaded files.
 
 == Technologies
 
-* **Java**: 17
-* **Apache Maven**: 3.9.16
-* **Spring Boot**: 4.1.1
+1. Java 17
+2. Apache Maven 3.9.16
+3. Spring Boot 4.1.1
 
 == Getting Started
 
-=== Prerequisites
+By default, downloaded Javadoc JAR files are stored in the `target/jar/downloads/` directory.
+You can customize this storage location by modifying the `src/main/resources/application.yml` file:
 
-Make sure you have Java 17 installed and configured in your environment variables.
+[source,yaml]
+----
+app:
+  jar:
+    download-dir: target/jar/downloads/
+----
 
 === Run Spring Boot Application
 
@@ -29,19 +35,14 @@ The application will start on port `8080` by default.
 
 You can access the Javadoc of any artifact using the following URL pattern:
 
-[source,text]
+[source]
 ----
-http://localhost:8080/javadoc/{group}/{artifact}/{version}
+http://localhost:8080/javadoc/{group}/{artifact}/{version}/{path}
 ----
 
-=== Example Request
+=== Example Requests
 
-To view the package summary of Google Guava version `33.4.8-jre`:
-
-[source,text]
+[source]
 ----
 http://localhost:8080/javadoc/com.google.guava/guava/33.4.8-jre/overview-summary.html
 ----
-
-* If the file exists inside the Javadoc JAR, it will be streamed instantly with proper `Content-Type`.
-* If the file does not exist, the system safely falls back to render the Thymeleaf `index` dashboard page.
