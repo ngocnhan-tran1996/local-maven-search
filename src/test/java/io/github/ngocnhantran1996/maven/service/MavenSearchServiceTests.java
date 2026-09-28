@@ -38,7 +38,7 @@ class MavenSearchServiceTests {
 
         Files.createFile(this.tempDir.resolve(artifact + "-" + version + "-javadoc.jar"));
 
-        MavenSearchService mavenSearchService = new MavenSearchService(this.tempDir.toString(), mock());
+        MavenSearchService mavenSearchService = new MavenSearchServiceImpl(this.tempDir.toString(), mock());
         assertThat(mavenSearchService.existsWithJavadoc(group, artifact, version)).isTrue();
     }
 
@@ -54,7 +54,7 @@ class MavenSearchServiceTests {
         mockServer.expect(MockRestRequestMatchers.anything())
             .andRespond(MockRestResponseCreators.withBadRequest());
 
-        MavenSearchService mavenSearchService = new MavenSearchService(this.tempDir.toString(), builder.build());
+        MavenSearchService mavenSearchService = new MavenSearchServiceImpl(this.tempDir.toString(), builder.build());
         assertThat(mavenSearchService.existsWithJavadoc(group, artifact, version)).isFalse();
     }
 
@@ -70,7 +70,7 @@ class MavenSearchServiceTests {
         mockServer.expect(MockRestRequestMatchers.anything())
             .andRespond(MockRestResponseCreators.withSuccess());
 
-        MavenSearchService mavenSearchService = new MavenSearchService(this.tempDir.toString(), builder.build());
+        MavenSearchService mavenSearchService = new MavenSearchServiceImpl(this.tempDir.toString(), builder.build());
         assertThat(mavenSearchService.existsWithJavadoc(group, artifact, version)).isTrue();
         assertThat(Files.exists(this.tempDir.resolve(artifact + "-" + version + "-javadoc.jar"))).isTrue();
     }
@@ -91,7 +91,7 @@ class MavenSearchServiceTests {
             zos.write(fileContent.getBytes(StandardCharsets.UTF_8));
         }
 
-        MavenSearchService mavenSearchService = new MavenSearchService(this.tempDir.toString(), mock());
+        MavenSearchService mavenSearchService = new MavenSearchServiceImpl(this.tempDir.toString(), mock());
 
         try (JarEntryResource jarEntryResource = mavenSearchService.readJavadoc(artifact, version, entryName)) {
             assertThat(jarEntryResource).isNotNull();
@@ -113,7 +113,7 @@ class MavenSearchServiceTests {
             // ignored
         }
 
-        MavenSearchService mavenSearchService = new MavenSearchService(this.tempDir.toString(), mock());
+        MavenSearchService mavenSearchService = new MavenSearchServiceImpl(this.tempDir.toString(), mock());
 
         try (JarEntryResource jarEntryResource = mavenSearchService.readJavadoc(artifact, version, entryName)) {
             assertThat(jarEntryResource).isNull();

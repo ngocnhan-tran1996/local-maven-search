@@ -3,22 +3,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>Spring MVC view layer: Thymeleaf vs. JSP</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <link rel="stylesheet" type="text/css" media="all"
-        href="../../css/thvsjsp.css" th:href="@{/css/thvsjsp.css}"/>
+  <title>Local Maven Search Application</title>
 </head>
 
 <body>
 
 <h2>This is a Thymeleaf template</h2>
 
-<form action="#" th:object="${mavenSearchRequest}" th:action="@{/}">
+<form action="#" th:object="${mavenSearchRequest}" th:action="@{/}" th:method="post"
+      th:if="${mavenSearchRequest != null}">
 
   <input type="text" th:field="*{group}"/>
-<!--  <select th:field="*{artifact}">-->
-<!--    <option value=""></option>-->
-<!--  </select>-->
+  <input type="hidden" th:field="*{searchArtifacts}" th:if="*{searchArtifacts != null}"/>
+  <input type="hidden" th:field="*{searchVersions}" th:if="*{searchVersions != null}"/>
+
+  <select th:field="*{artifact}" th:if="*{searchArtifacts != null}">
+    <option th:each="searchArtifact : *{searchArtifacts}" th:value="${searchArtifact}"
+            th:text="${searchArtifact}">searchArtifact
+    </option>
+  </select>
+
+  <select th:field="*{version}" th:if="*{searchVersions != null}">
+    <option th:each="searchVersion : *{searchVersions}" th:value="${searchVersion}"
+            th:text="${searchVersion}">searchVersion
+    </option>
+  </select>
+
+  <button type="submit">Find</button>
 </form>
 
 </body>

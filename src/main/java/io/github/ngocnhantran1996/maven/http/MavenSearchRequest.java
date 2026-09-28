@@ -10,5 +10,7 @@ public class MavenSearchRequest {
     private String group;
     private String artifact;
     private String version;
+    private String[] searchArtifacts;
+    private String[] searchVersions;
 
 }

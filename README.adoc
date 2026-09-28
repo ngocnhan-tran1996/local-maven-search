@@ -37,7 +37,7 @@ You can access the Javadoc of any artifact using the following URL pattern:
 
 [source]
 ----
-http://localhost:8080/javadoc/{group}/{artifact}/{version}/{path}
+http://localhost:8080/javadoc/{group}/{artifact}/{version}/
 ----
 
 === Example Requests
